@@ -1,8 +1,6 @@
 # import the necessary packages
 from QRmission.QRdecode import QRdecode
 import cv2
-import numpy as np
-import time
 import argparse
 
 # construct the argument parser and parse the arguments
