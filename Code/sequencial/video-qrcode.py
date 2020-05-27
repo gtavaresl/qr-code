@@ -34,7 +34,7 @@ rec = cv2.VideoWriter(args["output"], fourcc, frame_rate, resolution)
 while(True):
     # Capture frame-by-frame
     grabbed, frame = cap.read()
-    if grabbed == True:
+    if grabbed is True:
         frame = qr.process(frame)
         cv2.imshow('Frame',frame)
         rec.write(frame)

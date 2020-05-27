@@ -16,7 +16,7 @@ time.sleep(4.0)
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
-    if ret == True:
+    if ret is True:
         #cv2.imshow('Video Original',frame)
         print("Recording...")
         rec.write(frame)
