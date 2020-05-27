@@ -5,7 +5,6 @@ from imutils.video import WebcamVideoStream
 from imutils.video import FileVideoStream
 from imutils.video import FPS
 import argparse
-import imutils
 import cv2
 import time
 
