@@ -25,7 +25,7 @@ rpiName = socket.gethostname()
 #vs = VideoStream(usePiCamera=True).start()
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
-
+ 
 while True:
 	# read the frame from the camera and send it to the server
 	frame = vs.read()

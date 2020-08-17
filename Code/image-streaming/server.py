@@ -1,8 +1,10 @@
 # USAGE
 
 # import the necessary packages
+from imutils import build_montages
 from imutils.video import FPS
 from datetime import datetime
+import numpy as np
 import imagezmq
 import argparse
 import imutils
