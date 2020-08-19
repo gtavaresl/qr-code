@@ -17,8 +17,8 @@ class QRdecode():
 		image = 255 - image # black-in-white
 		
 		# perform a series of erosions and dilations
-		image = cv2.erode(image, None, iterations = 1)
-		image = cv2.dilate(image, None, iterations = 1)
+		#image = cv2.erode(image, None, iterations = 1)
+		#image = cv2.dilate(image, None, iterations = 1)
 		
 		# find the barcodes in the image and decode each of the barcodes
 		barcodes = pyzbar.decode(image)
