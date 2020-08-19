@@ -1,69 +1,49 @@
 # import the necessary packages
-from __future__ import print_function
 from QRmission.QRdecode import QRdecode
-from imutils.video import WebcamVideoStream
-from imutils.video import FileVideoStream
-from imutils.video import FPS
-import argparse
 import cv2
-import time
+import argparse
 
+'''
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-m","--mode", default = int(0), help = "mode of operation")
-ap.add_argument("-i", "--input", default = int(0), help = "path to input")
-ap.add_argument("-o", "--output", default = int(0), help ="path to output")
+ap.add_argument("-i", "--input", default = int(0), help = "path to input video")
+ap.add_argument("-o", "--output", default = "output", help = "path to output video")
+ap.add_argument("-f", "--file", default = "barcodes", help = "path to output file txt")
 args = vars(ap.parse_args())
 
-qr = QRdecode()
 
-# created a *threaded* video stream, allow the camera sensor to warmup,
-# and start the FPS counter
-if args["mode"] == 0:
-	vs = WebcamVideoStream(args["input"]).start()
-	time.sleep(2.0)
+if(args["input"] == 0):
+    args["input"] = "Webcam"
+    fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+    args["output"] += ".avi"
+
 else:
-	vs = FileVideoStream(args["input"]).start()
+    cap = cv2.VideoCapture(args["input"])
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    args["output"] += ".mp4"
+'''
+qr = QRdecode()
+cap = cv2.VideoCapture(0)
 
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+resolution = (640, 360)
+frame_rate = 25
 
-resolution = (1280, 720)
-frame_rate = 20
-rec = cv2.VideoWriter(args["output"], fourcc, frame_rate, resolution)
-
-print("[INFO] THREADED frames initialized...")
-fps = FPS().start()
+#rec = cv2.VideoWriter(args["output"], fourcc, frame_rate, resolution)
 
 
-# loop over some frames...this time using the threaded stream
-while True:
-	# grab the frame from the threaded video stream and resize it
-	# to have a maximum width of 400 pixels
-	frame = vs.read()
-	try:
-		#frame = cv2.resize(frame, (1280,960))#imutils.resize(frame, width = 640, height = 480)
-		frame = qr.process(frame)
-		# check to see if the frame should be displayed to our screen
-		#cv2.imshow("Frame", frame)
-		rec.write(frame)
-		# update the FPS counter
-		fps.update()
-	except cv2.error as e:
-		print("[INFO] client disconnected!")
-		break
-	if cv2.waitKey(1) & 0xFF == ord('q'):
-		break
+while(True):
+    # Capture frame-by-frame
+    grabbed, frame = cap.read()
+    if grabbed is True:
+        frame = qr.process(frame)
+        cv2.imshow('Frame',frame)
+        #rec.write(frame)
+    if (cv2.waitKey(1) & 0xFF == ord('q')) or not grabbed:
+        break
 
-# stop the timer and display FPS information
-fps.stop()
-
-print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-
-# do a bit of cleanup
+cap.release()
+#rec.release()
 cv2.destroyAllWindows()
-vs.stop()
-rec.release()
 
 qr.fwrite()
 qr.fclose()
