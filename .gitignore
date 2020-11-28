@@ -1,0 +1,7 @@
+images/input/*
+!images/input/test.png
+images/output/*
+!images/output/test.png
+code/QRpackage/__pycache__
+.vs
+env
