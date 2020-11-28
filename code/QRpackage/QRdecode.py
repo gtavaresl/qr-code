@@ -49,7 +49,7 @@ class QRdecoder:
         qrcodes = pyzbar.decode(image, symbols=[pyzbar.ZBarSymbol.QRCODE])
 
         # to be returned if found a qrcode
-        qrcodeData = []
+        qrcodeData = None
 
         # loop over the detected qrcodes
         for qrcode in qrcodes:

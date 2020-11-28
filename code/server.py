@@ -68,13 +68,13 @@ while True:
     (h, w) = frame.shape[:2]
 
     frame, qrcodeData = qr.process(frame)
-
+    
     # reply to client
     if qrcodeData is not None:
         imageHub.send_reply(bytes(qrcodeData, 'utf-8'))
     else:
         imageHub.send_reply(b'[INFO] QR Code not found')
-    
+
     # draw if the filter is on
     cv2.putText(frame, "Filter: " + str(qr.getFilter()), (5, 40),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)

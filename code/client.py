@@ -13,8 +13,10 @@ from QRpackage.QRdecode import QRdecoder
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-s", "--server-ip", default='192.168.0.113',
+ap.add_argument("-s", "--server-ip", default='192.168.0.108',
                 help="ip address of the server to which the client will connect")
+ap.add_argument("-c", "--camera-ip", default='https://192.168.0.110:8080/video',
+                help="ip address of the camera to which the client will connect")
 args = vars(ap.parse_args())
 
 qrcode_list = []
@@ -31,7 +33,7 @@ sender = ImageSender(connect_to="tcp://{}:5555".format(
 rpiName = socket.gethostname()
 print("[INFO] Connection established with " + rpiName)
 
-vs = VideoStream(src=0).start()
+vs = VideoStream(src=args["camera_ip"]).start()
 time.sleep(2.0)
 
 print("[INFO] Sending frames")
