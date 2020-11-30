@@ -3,5 +3,5 @@ images/input/*
 images/output/*
 !images/output/test.png
 code/QRpackage/__pycache__
-.vs
-env
+.vscode
+env-qr

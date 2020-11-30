@@ -27,7 +27,7 @@ class QRdecoder:
         image = cv2.inRange(
             image, (0, 0, 0), (self.range, self.range, self.range))
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-        #image = cv2.blur(image, (9, 9))
+        image = cv2.blur(image, (3, 3))
         image = 255 - image  # black-in-white
 
         # perform a series of erosions and dilations

@@ -17,7 +17,7 @@ ap.add_argument("-f", "--file", required=False, default=None,
 args = vars(ap.parse_args())
 
 # create the object decoder
-qr = QRdecoder(args["txt"])
+qr = QRdecoder(args["txt"], filter=True)
 
 
 # read the image
@@ -28,7 +28,7 @@ resolution = (640, 480)
 image = cv2.resize(image, resolution)
 
 # process and show
-processed, _ = qr.process(image)
+processed, dataQRCode = qr.process(image)
 
 cv2.imshow("Processed Image", processed)
 
